@@ -1,5 +1,6 @@
 # Odometry
  Odometry rotary encoder FPGA design with VHDL
+ Rotary encoder : https://github.com/nakbaral21/rotary-encoder
 ## Soal
  1. Buatlah rangkaian digital dengan kode vhdl untuk mengukur jarak (odometer), dari sebuah incremental rotary encoder yang dipasang roda omnidirectional seperti pada gambar 1. 
 	 - [ ] Board DE10 Lite 
