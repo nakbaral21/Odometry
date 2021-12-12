@@ -1,0 +1,152 @@
+LIBRARY ieee ;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+ENTITY rotary_encoder IS
+
+    PORT		(rot_a, rot_b				: in STD_LOGIC;
+				 lout2, lout1, lout0		: out STD_LOGIC_VECTOR (6 downto 0) );
+				 
+END rotary_encoder;
+
+ARCHITECTURE logic OF rotary_encoder IS
+	
+	SIGNAL anow		: 	STD_LOGIC;
+	SIGNAL aprev	:	STD_LOGIC						  := rot_a;
+	SIGNAL mode		:	STD_LOGIC_VECTOR (1 DOWNTO 0):= "00";
+	SIGNAL bcd0		:	STD_LOGIC_VECTOR (3 DOWNTO 0):= "0000";
+	SIGNAL bcd1		:	STD_LOGIC_VECTOR (3 DOWNTO 0):= "0000";
+	SIGNAL bcd2		:	STD_LOGIC_VECTOR (3 DOWNTO 0):= "0000";
+	
+BEGIN
+	PROCESS (rot_a, rot_b)
+   BEGIN
+		anow <= rot_a;
+		IF (anow /= aprev) THEN
+			IF (rot_b /= anow) THEN
+				mode <= "10";
+			ELSIF (rot_b = anow) THEN
+				mode <= "01";
+			ELSE
+				mode <= "00";
+			END IF;
+		ELSE
+			mode <= "00";
+		END IF;
+		aprev <= anow;
+		
+		IF (mode = "01") THEN
+			IF (bcd2 = "1001") THEN
+				IF (bcd1 = "1001") THEN
+					IF (bcd0 = "1001") THEN
+						bcd0 <= "0000";
+						bcd1 <= "0000";
+						bcd2 <= "0000";
+					ELSE
+						bcd0 <= bcd0 + 1;
+					END IF;
+				ELSE	
+					IF (bcd0 = "1001") THEN
+						bcd0 <= "0000";
+						bcd1 <= bcd1 + 1;
+					ELSE
+						bcd0 <= bcd0 + 1;
+					END IF;
+				END IF;
+			ELSE
+				IF (bcd1 = "1001") THEN
+					IF (bcd0 = "1001") THEN
+						bcd0 <= "0000";
+						bcd1 <= "0000";
+						bcd2 <= bcd2 + 1;
+					ELSE
+						bcd0 <= bcd0 + 1;
+					END IF;
+				ELSE	
+					IF (bcd0 = "1001") THEN
+						bcd0 <= "0000";
+						bcd1 <= bcd1 + 1;
+					ELSE
+						bcd0 <= bcd0 + 1;
+					END IF;
+				END IF;
+			END IF;
+				
+		ELSIF (mode = "10") THEN
+			IF (bcd2 = "0000") THEN
+				IF (bcd1 = "0000") THEN
+					IF (bcd0 = "0000") THEN
+						bcd0 <= "1001";
+						bcd1 <= "1001";
+						bcd2 <= "1001";
+					ELSE
+						bcd0 <= bcd0 - 1;
+					END IF;
+				ELSE	
+					IF (bcd0 = "0000") THEN
+						bcd0 <= "1001";
+						bcd1 <= bcd1 - 1;
+					ELSE
+						bcd0 <= bcd0 - 1;
+					END IF;
+				END IF;
+			ELSE
+				IF (bcd1 = "0000") THEN
+					IF (bcd0 = "0000") THEN
+						bcd0 <= "1001";
+						bcd1 <= "1001";
+						bcd2 <= bcd2 - 1;
+					ELSE
+						bcd0 <= bcd0 - 1;
+					END IF;
+				ELSE	
+					IF (bcd0 = "0000") THEN
+						bcd0 <= "1001";
+						bcd1 <= bcd1 - 1;
+					ELSE
+						bcd0 <= bcd0 - 1;
+					END IF;
+				END IF;
+			END IF;
+		END IF;
+	
+		
+	END PROCESS;
+	
+	lout0 <= "0000001" when bcd0 = "0000" else
+				"1001111" when bcd0 = "0001" else
+				"0010010" when bcd0 = "0010" else
+				"0000110" when bcd0 = "0011" else
+				"1001100" when bcd0 = "0100" else
+				"0100100" when bcd0 = "0101" else
+				"0100000" when bcd0 = "0110" else
+				"0001111" when bcd0 = "0111" else
+				"0000000" when bcd0 = "1000" else
+				"0000100" when bcd0 = "1001" else
+				"0110000";
+					
+	lout1 <= "0000001" when bcd1 = "0000" else
+				"1001111" when bcd1 = "0001" else
+				"0010010" when bcd1 = "0010" else
+				"0000110" when bcd1 = "0011" else
+				"1001100" when bcd1 = "0100" else
+				"0100100" when bcd1 = "0101" else
+				"0100000" when bcd1 = "0110" else
+				"0001111" when bcd1 = "0111" else
+				"0000000" when bcd1 = "1000" else
+				"0000100" when bcd1 = "1001" else
+				"0110000";
+				
+	lout2 <= "0000001" when bcd2 = "0000" else
+				"1001111" when bcd2 = "0001" else
+				"0010010" when bcd2 = "0010" else
+				"0000110" when bcd2 = "0011" else
+				"1001100" when bcd2 = "0100" else
+				"0100100" when bcd2 = "0101" else
+				"0100000" when bcd2 = "0110" else
+				"0001111" when bcd2 = "0111" else
+				"0000000" when bcd2 = "1000" else
+				"0000100" when bcd2 = "1001" else
+				"0110000";
+END logic;

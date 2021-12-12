@@ -1,0 +1,26 @@
+|odometry
+rot_a => ~NO_FANOUT~
+rot_b => ~NO_FANOUT~
+lout2[0] <= lout2.DB_MAX_OUTPUT_PORT_TYPE
+lout2[1] <= lout2.DB_MAX_OUTPUT_PORT_TYPE
+lout2[2] <= lout2.DB_MAX_OUTPUT_PORT_TYPE
+lout2[3] <= lout2.DB_MAX_OUTPUT_PORT_TYPE
+lout2[4] <= lout2.DB_MAX_OUTPUT_PORT_TYPE
+lout2[5] <= lout2.DB_MAX_OUTPUT_PORT_TYPE
+lout2[6] <= lout2.DB_MAX_OUTPUT_PORT_TYPE
+lout1[0] <= lout1.DB_MAX_OUTPUT_PORT_TYPE
+lout1[1] <= lout1.DB_MAX_OUTPUT_PORT_TYPE
+lout1[2] <= lout1.DB_MAX_OUTPUT_PORT_TYPE
+lout1[3] <= lout1.DB_MAX_OUTPUT_PORT_TYPE
+lout1[4] <= lout1.DB_MAX_OUTPUT_PORT_TYPE
+lout1[5] <= lout1.DB_MAX_OUTPUT_PORT_TYPE
+lout1[6] <= lout1.DB_MAX_OUTPUT_PORT_TYPE
+lout0[0] <= lout0.DB_MAX_OUTPUT_PORT_TYPE
+lout0[1] <= lout0.DB_MAX_OUTPUT_PORT_TYPE
+lout0[2] <= lout0.DB_MAX_OUTPUT_PORT_TYPE
+lout0[3] <= lout0.DB_MAX_OUTPUT_PORT_TYPE
+lout0[4] <= lout0.DB_MAX_OUTPUT_PORT_TYPE
+lout0[5] <= lout0.DB_MAX_OUTPUT_PORT_TYPE
+lout0[6] <= lout0.DB_MAX_OUTPUT_PORT_TYPE
+
+
